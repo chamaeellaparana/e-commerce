@@ -16,56 +16,17 @@
     rel="stylesheet">
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+    <script src="assets/js/logout.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/main.js"></script>
     <script>
-      var firebaseConfig = {
-        apiKey: 'AIzaSyB1qilujaZRq121wtLfg6KQrkcbtc5vhDg',
-        authDomain: 'dswdbgmd.firebaseapp.com',
-        databaseURL: 'https://dswdbgmd-default-rtdb.firebaseio.com',
-        projectId: 'dswdbgmd',
-        storageBucket: 'dswdbgmd.appspot.com',
-        messagingSenderId: '501755109798',
-        appId: '1:501755109798:web:d8f0691d5e42ff54bdef67',
-        measurementId: 'G-YP9LJGKCMZ',
-      };
-
-      firebase.initializeApp(firebaseConfig);
-
-      var database = firebase.database();
-      var productsRef = database.ref('products');
-      productsRef.on('value', function (snapshot) {
-        var products = snapshot.val();
-
-        // Update HTML content with the retrieved data
-        var productsList = document.getElementById('products-list');
-        productsList.innerHTML = '';
-
-        for (var key in products) {
-          if (products.hasOwnProperty(key)) {
-            var product = products[key];
-            var listItem = document.createElement('col-4');
-
-            // Create HTML structure for the product details
-            var productImage = document.createElement('img');
-            productImage.src = product.name;
-            listItem.appendChild(productImage);
-
-            var productName = document.createElement('h3');
-            productName.textContent = product.name;
-            listItem.appendChild(productName);
-
-            var productDescription = document.createElement('p');
-            productDescription.textContent =
-              'Description: ' + product.description;
-            listItem.appendChild(productDescription);
-
-            productsList.appendChild(listItem);
-
-            var productPrice = document.createElement('p');
-            productPrice.textContent = 'PHP : ' + product.price;
-            listItem.appendChild(productPrice);
-          }
+      /* firebase.auth().onAuthStateChanged(function (user) {
+        if (!user) {
+          // User is not signed in
+          // Redirect to a login page or display an access denied message
+          window.location.href = '/login.html';
         }
-      });
+      }); */
     </script>
   </head>
   <body>
@@ -82,7 +43,7 @@
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
               <li><a href="login.html">Account</a></li>
-              <li><a href="login.html">Log out</a></li>
+              <li><a id="logout-button">Log out</a></li>
             </ul>
           </nav>
           <img src="images/shopping-bag.png" width="30px" height="30px" />
