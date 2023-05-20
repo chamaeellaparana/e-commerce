@@ -14,13 +14,14 @@
     <link
     href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
     rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-auth.js"></script>
   </head>
   <body>
-    <link rel="stylesheet" href="login.css" />
     <img src="images/logo.png" width="350px" />
     <div class="container" id="container">
-      <div class="form-container sign-up-container">
-        <form action="#">
+      <!--  <div class="form-container sign-up-container">
+        <form action="#" id="registration-form">
           <h1>Create Account</h1>
           <div class="social-container">
             <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -33,18 +34,23 @@
           <input type="password" placeholder="Password" />
           <button>Sign Up</button>
         </form>
-      </div>
+      </div> -->
       <div class="form-container sign-in-container">
-        <form action="#">
+        <form id="registration-form">
           <h1>Sign Up</h1>
 
           <span>By signing up, you agree to </span>
-          <input type="text" placeholder="Full name" />
-          <input type="email" placeholder="Email" />
-          <input type="password" placeholder="Password" />
-          <input type="password" placeholder="Confirm Password" />
+          <input type="text" id="name" placeholder="Full name" required />
+          <input type="email" id="email" placeholder="Email" required />
+          <input
+            type="password"
+            placeholder="Password"
+            id="password"
+            required
+          />
+          <input type="password" placeholder="Confirm Password" required />
           <a href="#">Forgot your password?</a>
-          <button>Sign In</button>
+          <button type="submit">Sign In</button>
           <span
             >Have an Account ? please
             <a href="login.html" style="font-weight: bold">Sign In</a>
@@ -69,5 +75,54 @@
         </div>
       </div>
     </div>
+    <script>
+      var firebaseConfig = {
+        apiKey: 'AIzaSyB1qilujaZRq121wtLfg6KQrkcbtc5vhDg',
+        authDomain: 'dswdbgmd.firebaseapp.com',
+        databaseURL: 'https://dswdbgmd-default-rtdb.firebaseio.com',
+        projectId: 'dswdbgmd',
+        storageBucket: 'dswdbgmd.appspot.com',
+        messagingSenderId: '501755109798',
+        appId: '1:501755109798:web:d8f0691d5e42ff54bdef67',
+        measurementId: 'G-YP9LJGKCMZ',
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      // Form submit event handler
+
+      document
+        .getElementById('registration-form')
+        .addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          // Get user input values
+          var email = document.getElementById('email').value;
+          var password = document.getElementById('password').value;
+          var name = document.getElementById('name').value;
+
+          // Create user account with Firebase Authentication
+          firebase
+            .auth()
+            .createUserWithEmailAndPassword(email, password)
+            .then(function (userCredential) {
+              var user = userCredential.user;
+              // Update additional user information if needed
+              return user.updateProfile({
+                displayName: name,
+              });
+            })
+            .then(function () {
+              // Registration successful, redirect or show a success message
+              console.log('Registration successful');
+            })
+            .catch(function (error) {
+              // Handle errors during registration
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.error('Registration failed:', errorMessage);
+            });
+        });
+    </script>
   </body>
 </html>

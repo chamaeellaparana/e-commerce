@@ -14,6 +14,59 @@
     <link
     href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css
     rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.3/firebase-database.js"></script>
+    <script>
+      var firebaseConfig = {
+        apiKey: 'AIzaSyB1qilujaZRq121wtLfg6KQrkcbtc5vhDg',
+        authDomain: 'dswdbgmd.firebaseapp.com',
+        databaseURL: 'https://dswdbgmd-default-rtdb.firebaseio.com',
+        projectId: 'dswdbgmd',
+        storageBucket: 'dswdbgmd.appspot.com',
+        messagingSenderId: '501755109798',
+        appId: '1:501755109798:web:d8f0691d5e42ff54bdef67',
+        measurementId: 'G-YP9LJGKCMZ',
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
+      var database = firebase.database();
+      var productsRef = database.ref('products');
+      productsRef.on('value', function (snapshot) {
+        var products = snapshot.val();
+
+        // Update HTML content with the retrieved data
+        var productsList = document.getElementById('products-list');
+        productsList.innerHTML = '';
+
+        for (var key in products) {
+          if (products.hasOwnProperty(key)) {
+            var product = products[key];
+            var listItem = document.createElement('col-4');
+
+            // Create HTML structure for the product details
+            var productImage = document.createElement('img');
+            productImage.src = product.name;
+            listItem.appendChild(productImage);
+
+            var productName = document.createElement('h3');
+            productName.textContent = product.name;
+            listItem.appendChild(productName);
+
+            var productDescription = document.createElement('p');
+            productDescription.textContent =
+              'Description: ' + product.description;
+            listItem.appendChild(productDescription);
+
+            productsList.appendChild(listItem);
+
+            var productPrice = document.createElement('p');
+            productPrice.textContent = 'PHP : ' + product.price;
+            listItem.appendChild(productPrice);
+          }
+        }
+      });
+    </script>
   </head>
   <body>
     <div class="header" id="header">
@@ -70,52 +123,23 @@
     </div>
     <hr />
     <!------featured products---->
+
     <div class="small-container" id="products">
       <h2 class="title">TOP PRODUCTS</h2>
-      <div class="row">
+
+      <div class="row" id="products-list">
         <div class="col-4">
-          <img src="images/product5.jpg" />
-          <h4>Maybelline New York Foundation, Lightweight Skin Tin</h4>
+          <img src="images/product5.jpg" class="product-image" />
+          <h4 class="product-name">
+            Maybelline New York Foundation, Lightweight Skin Tin
+          </h4>
           <div class="rating"></div>
           <i class="fa-solid fa-star" style="color: #e43f86"></i>
           <i class="fa-solid fa-star" style="color: #e43f86"></i>
           <i class="fa-solid fa-star" style="color: #e43f86"></i>
           <i class="fa-solid fa-star" style="color: #e43f86"></i>
           <i class="fa-regular fa-star" style="color: #e43f86"></i>
-          <p>PHP 299.OO</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product6.jpg" />
-          <h4>Swiss Beauty Matte Professional Liquid Concealer</h4>
-          <div class="rating"></div>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-regular fa-star" style="color: #e43f86"></i>
-          <p>PHP 149.OO</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product3.jpg" />
-          <h4>Revlon ColorStay Liquid Foundation Makeup</h4>
-          <div class="rating"></div>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-regular fa-star" style="color: #e43f86"></i>
-          <p>PHP 299.OO</p>
-        </div>
-        <div class="col-4">
-          <img src="images/product4.jpg" />
-          <h4>Maybelline New York Liquid Foundation Matte & Poreless Finish</h4>
-          <div class="rating"></div>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-solid fa-star" style="color: #e43f86"></i>
-          <i class="fa-regular fa-star" style="color: #e43f86"></i>
-          <p>PHP 499.OO</p>
+          <p class="product-price">PHP 299.OO</p>
         </div>
       </div>
       <h2 class="title">PRODUCTS</h2>
