@@ -14,5 +14,13 @@ function displayVerificationStatus(status) {
   var verificationStatusContainer = document.getElementById(
     'verification-status'
   );
+
   verificationStatusContainer.textContent = status;
+}
+
+function displayVerificationStatusFormat(statusFormat) {
+  var verificationStatusContainerFormat = document.getElementById(
+    'verification-message'
+  );
+  verificationStatusContainerFormat.textContent = statusFormat;
 }
