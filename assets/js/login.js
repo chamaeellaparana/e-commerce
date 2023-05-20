@@ -1,9 +1,13 @@
 // Form submit event handler
-// Check Firebase Auth initialization
+
 if (typeof firebase.auth === 'undefined') {
   console.error('Firebase Authentication is not properly initialized.');
 }
-
+var errorMessageContainer = document.getElementById('error-message');
+function displayErrorMessage(message) {
+  errorMessageContainer.textContent = message;
+  errorMessageContainer.style.display = 'block';
+}
 // Form submit event handler
 document
   .getElementById('login-form')
@@ -25,9 +29,6 @@ document
         window.location.href = 'BloomCosmetics.html';
       })
       .catch(function (error) {
-        // Handle errors during login
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        console.error('Login failed:', errorMessage);
+        displayErrorMessage(error.errorMessage);
       });
   });
