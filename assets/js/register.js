@@ -16,10 +16,22 @@ document
       .createUserWithEmailAndPassword(email, password)
       .then(function (userCredential) {
         var user = userCredential.user;
+        user.sendEmailVerification();
         // Update additional user information if needed
-        return user.updateProfile({
-          displayName: name,
-        });
+        user
+          .sendEmailVerification()
+          .then(function () {
+            // Email verification sent
+            alert('Verification email sent');
+            // Update additional user information if needed
+            return user.updateProfile({
+              displayName: name,
+            });
+          })
+          .catch(function (error) {
+            // Handle email sending errors
+            console.error('Error sending verification email:', error.message);
+          });
       })
       .then(function () {
         // Registration successful, redirect or show a success message
