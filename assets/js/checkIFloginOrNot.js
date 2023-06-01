@@ -1,7 +1,7 @@
 firebase.auth().onAuthStateChanged(function (user) {
-  const loginDiv = document.getElementById('logout-button');
-  const logoutDiv = document.getElementById('logout-in');
-  if (!user) {
+  const logoutDiv = document.getElementById('logout-button');
+  const loginDiv = document.getElementById('login-button');
+  if (user) {
     loginDiv.style.display = 'none';
     logoutDiv.style.display = 'flex';
   } else {
