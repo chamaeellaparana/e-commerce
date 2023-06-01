@@ -37,20 +37,6 @@
               <li><a href="#about">About</a></li>
               <li><a href="#contact">Contact</a></li>
               <li><a href="profile.html">Account</a></li>
-
-              <script>
-                firebase.auth().onAuthStateChanged(function (user) {
-                  const loginDiv = document.getElementById('logout-button');
-                  const logoutDiv = document.getElementById('logout-in');
-                  if (!user) {
-                    loginDiv.style.display = 'none';
-                    logoutDiv.style.display = 'flex';
-                  } else {
-                    loginDiv.style.display = 'flex';
-                    logoutDiv.style.display = 'none';
-                  }
-                });
-              </script>
               <li><a id="logout-button">Log out</a></li>
               <li><a href="login.html" id="login-button">Log in</a></li>
             </ul>
