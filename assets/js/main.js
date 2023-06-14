@@ -14,7 +14,10 @@ productsRef.on('value', function (snapshot) {
 
       // Create HTML structure for the product details
       var productImage = document.createElement('img');
-      productImage.src = product.name;
+      productImage.src = product.imageUrl; 
+      productImage.alt = product.name; 
+      productImage.width = 200;
+      productImage.height = 150;     
       listItem.appendChild(productImage);
 
       var productName = document.createElement('h3');
@@ -30,6 +33,22 @@ productsRef.on('value', function (snapshot) {
       var productPrice = document.createElement('p');
       productPrice.textContent = 'PHP : ' + product.price;
       listItem.appendChild(productPrice);
+
+
+       // Add "Add to Cart" button
+       var addToCartButton = document.createElement('button');
+       addToCartButton.textContent = 'Add to Cart';
+      addToCartButton.style.backgroundColor = '#4CAF50';
+      addToCartButton.style.color = 'white';
+      addToCartButton.style.padding = '8px 16px';
+      addToCartButton.style.border = 'none';
+      addToCartButton.style.borderRadius = '4px';
+      addToCartButton.style.cursor = 'pointer';
+      addToCartButton.style.fontSize = '16px';
+      addToCartButton.style.margin = '16px';
+       listItem.appendChild(addToCartButton);
+
+       productsList.appendChild(listItem);
     }
   }
 });
