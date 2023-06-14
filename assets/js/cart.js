@@ -11,6 +11,9 @@ var userId = "";
 productsRef = database.ref('cart/' + userId);
 
 var itemCountElement = document.getElementById('itemCount');
+var totalElement = document.getElementById('Total');
+var SubtotaltotalElement = document.getElementById('Subtotal');
+
   productsRef.on('value', function(snapshot) {
   var products = snapshot.val();
   productsRef.once('value')
@@ -73,7 +76,7 @@ var itemCountElement = document.getElementById('itemCount');
 
       var quantityLabel = document.createElement('h5');
       quantityLabel.classList.add('fw-normal', 'mb-0');
-      quantityLabel.textContent = '2'; // Replace with the actual quantity
+      quantityLabel.textContent = product.quantity; // Replace with the actual quantity
 
       quantityDiv.appendChild(quantityLabel);
 
@@ -111,6 +114,11 @@ var itemCountElement = document.getElementById('itemCount');
       productsList.appendChild(listItem);
 
 
+      var total = (product.price * product.quantity) + 50;
+      totalElement.textContent = total;
+      SubtotaltotalElement.textContent = product.price * product.quantity;
+    
+      
       function deleteFromCart(userId, itemId) {
         var cartRef = database.ref('cart/' + userId);
         

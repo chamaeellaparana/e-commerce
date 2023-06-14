@@ -64,7 +64,7 @@
                     >
                       <div>
                         <p class="mb-1">Shopping cart</p>
-                        <p class="mb-0" id="itemCount">You have 4 items in your cart</p>
+                        <p class="mb-0" id="itemCount"></p>
                       </div>
                       
                     </div>
@@ -96,10 +96,10 @@
                               id="typeName"
                               class="form-control form-control-lg"
                               siez="17"
-                              placeholder="Cardholder's Name"
+                              placeholder="Full Name"
                             />
                             <label class="form-label" for="typeName"
-                              >Cardholder's Name</label
+                              > Name</label
                             >
                           </div>
 
@@ -108,68 +108,31 @@
                               type="text"
                               id="typeText"
                               class="form-control form-control-lg"
-                              siez="17"
-                              placeholder="1234 5678 9012 3457"
-                              minlength="19"
-                              maxlength="19"
+                             
+                              placeholder="Address"
                             />
                             <label class="form-label" for="typeText"
-                              >Card Number</label
+                              >Address</label
                             >
                           </div>
 
-                          <div class="row mb-4">
-                            <div class="col-md-6">
-                              <div class="form-outline form-white">
-                                <input
-                                  type="text"
-                                  id="typeExp"
-                                  class="form-control form-control-lg"
-                                  placeholder="MM/YYYY"
-                                  size="7"
-                                  id="exp"
-                                  minlength="7"
-                                  maxlength="7"
-                                />
-                                <label class="form-label" for="typeExp"
-                                  >Expiration</label
-                                >
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-outline form-white">
-                                <input
-                                  type="password"
-                                  id="typeText"
-                                  class="form-control form-control-lg"
-                                  placeholder="&#9679;&#9679;&#9679;"
-                                  size="1"
-                                  minlength="3"
-                                  maxlength="3"
-                                />
-                                <label class="form-label" for="typeText"
-                                  >Cvv</label
-                                >
-                              </div>
-                            </div>
-                          </div>
                         </form>
 
                         <hr class="my-4" />
 
                         <div class="d-flex justify-content-between">
                           <p class="mb-2">Subtotal</p>
-                          <p class="mb-2">$4798.00</p>
+                          <p class="mb-2" id="Subtotal">PHP 4798.00</p>
                         </div>
 
                         <div class="d-flex justify-content-between">
                           <p class="mb-2">Shipping</p>
-                          <p class="mb-2">$20.00</p>
+                          <p class="mb-2" >PHP 50.00</p>
                         </div>
 
                         <div class="d-flex justify-content-between mb-4">
                           <p class="mb-2">Total(Incl. taxes)</p>
-                          <p class="mb-2">$4818.00</p>
+                          <p class="mb-2" id="Total">PHP 4818.00</p>
                         </div>
 
                         <button
@@ -177,11 +140,11 @@
                           class="btn btn-info btn-block btn-lg"
                         >
                           <div class="d-flex justify-content-between">
-                            <span>$4818.00</span>
-                            <span
+                            <span>THANK YOU</span>
+                            <a href="success.html"
                               >Checkout
                               <i class="fas fa-long-arrow-alt-right ms-2"></i
-                            ></span>
+                            ></a>
                           </div>
                         </button>
                       </div>

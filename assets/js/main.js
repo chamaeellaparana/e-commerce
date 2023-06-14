@@ -92,8 +92,28 @@ function addToCart(productId,item) {
      var existingCartItem = snapshot.val();
 
      if (existingCartItem) {
-       console.log('exist');
-       console.log(product.name);
+
+      var running = true;
+
+      
+
+          var existingQuantity = existingCartItem.quantity;
+          existingCartItem.quantity = existingQuantity + 1;
+    
+      if (running){
+          cartRef.child(userId).child(productId).set(existingCartItem)
+          .then(function() {
+            console.log('Quantity updated in cart:', existingCartItem);
+            
+           running = false;
+          })
+          .catch(function(error) {
+            console.error('Failed to update quantity in cart:', error);
+           running = false;
+          });
+      }
+       // Increment the quantity of the existing cart item
+  
      }else{
        // Push the cart item to the database using the user UID as the key
        cartRef.child(userId).child(productId).set(item)
