@@ -6,7 +6,6 @@ var productDescription = '';
 var productImage = '';
 var productId = '';
 
-
 productsRef.on('value', function (snapshot) {
   var products = snapshot.val();
 
@@ -41,7 +40,6 @@ productsRef.on('value', function (snapshot) {
       productPrice.textContent = 'PHP : ' + product.price;
       listItem.appendChild(productPrice);
 
-
        // Add "Add to Cart" button
       var addToCartButton = document.createElement('button');
       addToCartButton.textContent ='ADD TO CART';
@@ -57,11 +55,9 @@ productsRef.on('value', function (snapshot) {
       listItem.appendChild(addToCartButton);
       productsList.appendChild(listItem);
        // Add click event listener to the button
+       
   
-}
-
-}
-
+}}
 
 addToCartButton.addEventListener('click', function() {
   // Get the product details
@@ -78,7 +74,6 @@ addToCartButton.addEventListener('click', function() {
     imageUrl: productImage,
     id: productId,
     quantity: 1
-
   };
   // Add the cart item to the cart
   addToCart(productId,cartItem);
@@ -98,8 +93,7 @@ function addToCart(productId,item) {
 
      if (existingCartItem) {
        console.log('exist');
-       console.log(product.name)
-       
+       console.log(product.name);
      }else{
        // Push the cart item to the database using the user UID as the key
        cartRef.child(userId).child(productId).set(item)
@@ -110,6 +104,7 @@ function addToCart(productId,item) {
          console.error('Failed to add item to cart:', error);
        });
      }
-    });}}
+    });
+}}
 
 });
