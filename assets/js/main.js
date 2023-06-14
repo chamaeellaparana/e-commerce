@@ -5,6 +5,7 @@ var productPrice = '';
 var productDescription = '';
 var productImage = '';
 var productId = '';
+var productQuatity = '';
 
 productsRef.on('value', function (snapshot) {
   var products = snapshot.val();
@@ -66,6 +67,7 @@ addToCartButton.addEventListener('click', function() {
    productDescription = product.description;
    productImage = product.imageUrl;
    productId = product.productId;
+   
   // Create a cart item object
   var cartItem = {
     name: productName,
@@ -92,26 +94,20 @@ function addToCart(productId,item) {
      var existingCartItem = snapshot.val();
 
      if (existingCartItem) {
-
-      var running = true;
-
-      
-
-          var existingQuantity = existingCartItem.quantity;
-          existingCartItem.quantity = existingQuantity + 1;
     
-      if (running){
-          cartRef.child(userId).child(productId).set(existingCartItem)
-          .then(function() {
-            console.log('Quantity updated in cart:', existingCartItem);
-            
-           running = false;
-          })
-          .catch(function(error) {
-            console.error('Failed to update quantity in cart:', error);
-           running = false;
-          });
-      }
+      cartRef.child(userId).child(productId).child('quantity').transaction(function(currentQuantity) {
+        // Increment the current quantity by 1
+        return (currentQuantity || 0) + 1;
+      }, function(error, committed, snapshot) {
+        if (error) {
+          console.error('Failed to increment quantity:', error);
+        } else if (!committed) {
+          console.log('Transaction aborted: Quantity was not incremented.');
+        } else {
+          console.log('Quantity incremented successfully.');
+        }
+      });
+      console.log(existingCartItem);
        // Increment the quantity of the existing cart item
   
      }else{
