@@ -12,6 +12,8 @@ productsRef.on('value', function (snapshot) {
       var product = products[key];
       var listItem = document.createElement('col-4');
 
+
+
       // Create HTML structure for the product details
       var productImage = document.createElement('img');
       productImage.src = product.imageUrl; 
@@ -36,8 +38,8 @@ productsRef.on('value', function (snapshot) {
 
 
        // Add "Add to Cart" button
-       var addToCartButton = document.createElement('button');
-       addToCartButton.textContent = 'Add to Cart';
+      var addToCartButton = document.createElement('button');
+      addToCartButton.textContent ='ADD TO CART';
       addToCartButton.style.backgroundColor = '#4CAF50';
       addToCartButton.style.color = 'white';
       addToCartButton.style.padding = '8px 16px';
@@ -46,9 +48,68 @@ productsRef.on('value', function (snapshot) {
       addToCartButton.style.cursor = 'pointer';
       addToCartButton.style.fontSize = '16px';
       addToCartButton.style.margin = '16px';
-       listItem.appendChild(addToCartButton);
+      addToCartButton.classList.add('button-add-to-cart');
+      listItem.appendChild(addToCartButton);
+      productsList.appendChild(listItem);
+  
+}}
 
-       productsList.appendChild(listItem);
-    }
-  }
+  // Add click event listener to the button
+  addToCartButton.addEventListener('click', function() {
+    // Get the product details
+    var productName = product.name;
+    var productPrice = product.price;
+    var productDescription = product.description;
+    var productImage = product.imageUrl;
+    var productId = product.productId;
+    // Create a cart item object
+    var cartItem = {
+      name: productName,
+      price: productPrice,
+      description: productDescription,
+      imageUrl: productImage,
+      id: productId,
+      quantity: 1
+
+    };
+    // Add the cart item to the cart
+    addToCart(productId,cartItem);
+  });
+  function addToCart(productId,item) {
+     // Get the currently logged-in user
+    var user = firebase.auth().currentUser;
+    // Reference to the "cart" table in the Firebase Realtime Database
+    if (user) {
+      var userId = user.uid; // Get the user's UID
+      // Reference to the "cart" table in the Firebase Realtime Database
+      var cartRef = database.ref('cart');
+
+      cartRef.child(userId).child(productId).once('value', function(snapshot) { 
+        var existingCartItem = snapshot.val();
+
+        if (existingCartItem) {
+
+       // Product already exists in the cart, increment the quantity
+       /*  var existingQuantity = existingCartItem.quantity;
+        cartRef.child(userId).child(productId).update({ quantity: existingQuantity + item.quantity })
+          .then(function() {
+            console.log('Quantity updated in cart:', item);
+          })
+          .catch(function(error) {
+            console.error('Failed to update quantity in cart:', error);
+          }); */
+
+          console.log('exist');
+          
+        }else{
+          // Push the cart item to the database using the user UID as the key
+          cartRef.child(userId).child(productId).set(item)
+          .then(function() {
+            console.log('Item added to cart:', item);
+          })
+          .catch(function(error) {
+            console.error('Failed to add item to cart:', error);
+          });
+        }
+       });}}
 });
